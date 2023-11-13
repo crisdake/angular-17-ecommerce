@@ -24,8 +24,8 @@ export class ProductDetailComponent {
         next: (product) => {
            console.log(product)
            this.product.set(product)
-           if(product.image.length >0) {
-             this.cover.set(product.image[0])
+           if(product.images.length >0) {
+             this.cover.set(product.images[0])
            }
         }
       })

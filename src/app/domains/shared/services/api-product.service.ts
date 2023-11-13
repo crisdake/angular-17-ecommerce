@@ -8,11 +8,13 @@ import { Product } from '../models/product.model';
 export class ApiProductService {
    private http = inject(HttpClient)
   constructor() { }
-  getProducts(id?:string){
+  getProducts(category_id?:string){
     const UrL = new URL('https://api.escuelajs.co/api/v1/products')
-    if(id){
-      UrL.searchParams.set('categoryId',id)
+    if(category_id){
+      UrL.searchParams.set('categoryId',category_id)
     }
+    // falta arreglar categorias y el carrito de compras
+    console.log(UrL.toString())
     return this.http.get<Product[]>(UrL.toString())
   }
   getOne(id:string){

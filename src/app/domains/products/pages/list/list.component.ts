@@ -22,12 +22,13 @@ export class ListComponent {
   private cartService = inject(CartService)
   private ApiService = inject(ApiProductService)
   private CategoryService = inject(CategoriesService)
-  @Input() id?: string
+  @Input() category_id?: string
   ngOnInit(){
     this.GetCategory()
   }
-  ngOnchanges(changes: SimpleChanges){
-     this.getProducts()
+  ngOnChanges(changes: SimpleChanges) {
+    // necesito cambiar por el parametro category los productos que se reenderiza
+    this.getProducts();
   }
   constructor(){
  /*    const initProducts: Product[]= [
@@ -56,9 +57,9 @@ export class ListComponent {
       this.cartService.addTocart(product)
   }
   private getProducts(){
-    this.ApiService.getProducts().subscribe({
+    this.ApiService.getProducts(this.category_id).subscribe({
       next: (product)=>{
-         this.products.set(product)
+        this.products.set(product)
       },
       error: (error)=>{
          return new Error (error)
