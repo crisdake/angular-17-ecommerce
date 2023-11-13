@@ -1,7 +1,30 @@
-<div class="grid grid-cols-3 gap-8">
-    <app-product title="Product 1" [price]="12" img="https://picsum.photos/640/640?r=23" (addToCart)="fromChild($event)" />
-    <app-product title="Product 2" [price]="12" img="https://picsum.photos/640/640?r=24" (addToCart)="fromChild($event)" />
+<div class="flex space-x-4 mt-5">
+  <div class="w-56">
+    <ul>
+      <li>
+        <a routerLink="/">All</a>
+      </li>
+    </ul>
+    <ul>
+      <li *ngFor="let category of category()">
+        <a routerLink="/" [queryParams]="{ id: category.id }">{{
+          category.name
+        }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-3 gap-8">
+    <app-product
+      *ngFor="let product of products()"
+      [product]="product"
+      (addToCart)="addTocart($event)"
+    />
+    <!-- <app-product title="Product 2" [price]="12" img="https://picsum.photos/640/640?r=24" (addToCart)="fromChild($event)" />
     <app-product title="Product 3" [price]="12" img="https://picsum.photos/640/640?r=23" (addToCart)="fromChild($event)" />
     <app-product title="Product 4" [price]="12" img="https://picsum.photos/640/640?r=22" (addToCart)="fromChild($event)" />
-    <app-product title="Product 4" [price]="12" img="https://picsum.photos/640/640?r=21" (addToCart)="fromChild($event)" />
+    <app-product title="Product 4" [price]="12" img="https://picsum.photos/640/640?r=21" (addToCart)="fromChild($event)" /> -->
+  </div>
+  <!--  [title]="product.title"
+    [price]="product.price"
+    [img]="product.image" -->
 </div>

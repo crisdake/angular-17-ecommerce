@@ -57,6 +57,7 @@ export class CounterComponent {
   ngOnDestroy(){
     console.log('ngOnDestroy');
     console.log('-'.repeat(10));
+    // aqui destruyo el intervalo
     window.clearInterval(this.counterRef)
   }
 
