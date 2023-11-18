@@ -7,11 +7,13 @@
   </p>
   <p class="text-xs">
     Numero de clientes
-    <app-counter
+    @if (duration() > 0) {
+<app-counter
       [duration]="duration()"
       [message]="message()"
-      *ngIf="duration() > 0"
+     
     />
+}
   </p>
   <div>
     <app-wave-audio audioUrl="assets/audio.mp3" />
