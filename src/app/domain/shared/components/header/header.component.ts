@@ -1,10 +1,8 @@
-import { Component, signal, Input, SimpleChanges, inject } from '@angular/core';
+import { Component, signal,inject, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from 'src/app/domains/shared/models/product.model';
 import { CartService } from 'src/app/domains/shared/services/cart.service';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth.service';
-import { User } from '@shared/models/user.model';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -19,6 +17,7 @@ export class HeaderComponent {
      cart = this.cartService.cart
      total = this.cartService.total
      user = this.authService.User
+     hideUserMenu = signal(true)
      hideSideMenu = signal(true)
     ToogleSideMenu(){
       this.hideSideMenu.update(prevstate => !prevstate)
@@ -27,6 +26,19 @@ export class HeaderComponent {
       this.authService.logout()
       this.router.navigate(['/'])
     }
+    ToggleUserMenu(){
+      this.hideUserMenu.update(prevstate => !prevstate)
+    }
+
+/*     ngOnChanges(changes:SimpleChanges){
+       const usuario = changes['user']
+       if(usuario){
+        this.authService.getProfile()
+        .subscribe(()=>{
+          console.log('profile obtenido')
+        })
+       }
+    } */
    /*  @Input() cart: Product[] = [] */
     /* total = signal(0) */
 /*     ngOnchanges(changes:SimpleChanges){

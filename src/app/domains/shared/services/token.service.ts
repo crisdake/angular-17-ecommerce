@@ -14,7 +14,7 @@ export class TokenService {
     setCookie('token',token,{expires:365,path:'/'})
   }
 
-  static getToken() {
+  getToken() {
     /* const token = sessionStorage.getItem('token'); */
     const token = getCookie('token')
     return token;
@@ -24,8 +24,8 @@ export class TokenService {
     /* sessionStorage.removeItem('token'); */
     removeCookie('token')
   }
-  static IsValidToken(){
-    const token = TokenService.getToken()
+  IsValidToken(){
+    const token = this.getToken()
     if(!token){
        return false
     }
@@ -44,7 +44,7 @@ export class TokenService {
     setCookie('refresh-token',token,{expires:365,path:'/'})
   }
 
-  static getRefreshToken() {
+  getRefreshToken() {
     /* const token = sessionStorage.getItem('token'); */
     const token = getCookie('refresh-token')
     return token;
@@ -54,8 +54,8 @@ export class TokenService {
     /* sessionStorage.removeItem('token'); */
     removeCookie('refresh-token')
   }
-  static IsValidRefreshToken(){
-    const token = TokenService.getRefreshToken()
+  IsValidRefreshToken(){
+    const token = this.getRefreshToken()
     if(!token){
        return false
     }

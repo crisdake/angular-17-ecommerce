@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject,signal } from '@angular/core';
 import { TokenService } from './token.service';
 import { Auth, User } from '@shared/models/user.model';
@@ -21,15 +21,14 @@ export class AuthService {
       }
     }) */
   getProfile(){
-    const token = TokenService.getToken()
-    return this.http.get<User>('https://api.escuelajs.co/api/v1/profile',{
+    return this.http.get<User>('https://api.escuelajs.co/api/v1/auth/profile',{
       context: checkToken()
     }).pipe(
       tap(user=> this.User.set(user))
     )
   }
   Login(email:string,password:string){
-    return this.http.post<ResponseLogin>('https://api.escuelajs.co/api/v1/login',{email,password})
+    return this.http.post<ResponseLogin>('https://api.escuelajs.co/api/v1/auth/login',{email,password})
     .pipe(
       // recibimos el access token y el refresh token
       tap((response) => {
@@ -54,6 +53,8 @@ export class AuthService {
   }
   logout(){
     this.tokenService.removeToken()
+    this.tokenService.removeRefreshToken()
+    this.User.set(null)
   }
   Register(name:string,email:string,password:string,avatar:string){
     return this.http.post<Auth>('https://api.escuelajs.co/api/v1/users',{name,email,password,avatar})
@@ -61,7 +62,8 @@ export class AuthService {
   RegisterAndlogin(name:string,email:string,password:string,avatar:string){
     return this.http.post<Auth>('https://api.escuelajs.co/api/v1/users',{name,email,password,avatar})
     .pipe(
-      switchMap(()=> this.Login(email,password))
+      switchMap(()=> this.Login(email,password)),
+      switchMap(()=> this.LoginAndGet(email,password))
     )
   }
   Available(email:string){

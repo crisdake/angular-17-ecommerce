@@ -41,7 +41,7 @@ Doregister(){
     .subscribe({
       next: ()=>{
         this.status='success'
-        this.router.navigate(['/app'])
+        this.router.navigate(['/'])
       },
       error: ()=>{
         this.status ='failed'
@@ -59,7 +59,7 @@ ValidateUser(){
     .subscribe({
       next: (rta)=>{
         this.statusUser='success'
-        if(rta.isAvailable){
+        if(!rta.isAvailable){
           this.ShowRegister = true
           this.form.controls.emailField.setValue(emailField)
         } else {

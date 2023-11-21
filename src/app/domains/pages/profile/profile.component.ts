@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '@shared/services/auth.service';
-import { User } from '@shared/models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -13,4 +12,5 @@ import { User } from '@shared/models/user.model';
 export class ProfileComponent {
   private Authservice = inject(AuthService)
   User = this.Authservice.User
+  // esto deberia ir en el header
 }

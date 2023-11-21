@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { AuthService } from '@shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule,Validators, FormBuilder} from '@angular/forms';
@@ -13,7 +13,7 @@ import { RequestStatus } from '@shared/models/user.model';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  private Authservice = inject(AuthService)
+  private authservice = inject(AuthService)
   private formBuilder = inject(FormBuilder)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -27,7 +27,7 @@ export class LoginComponent {
 }
   form = this.formBuilder.nonNullable.group({
         emailField : ['',[Validators.required, Validators.maxLength(20),Validators.email]],
-        PasswordField: ['',[Validators.required,Validators.minLength(20)]]
+        PasswordField: ['',[Validators.required,Validators.minLength(8)]]
       })
   status:RequestStatus='init'
   Dologin(){
@@ -35,11 +35,11 @@ export class LoginComponent {
       this.status = 'loading'
       const {emailField,PasswordField} = this.form.getRawValue()
       // antes de suscribirse en la respuesta vas y guardas el token en sessionstorage
-      this.Authservice.Login(emailField,PasswordField)
+      this.authservice.LoginAndGet(emailField,PasswordField)
       .subscribe({
         next: ()=>{
           this.status = 'success'
-          this.router.navigate(['/app'])
+          this.router.navigate(['/'])
         },
         error: ()=>{
             this.status = 'failed'
