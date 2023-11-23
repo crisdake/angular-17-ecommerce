@@ -3,6 +3,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule,Validators, FormBuilder} from '@angular/forms';
 import { Router, RouterLink,ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestStatus } from '@shared/models/user.model';
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent {
   private formBuilder = inject(FormBuilder)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  private toast = inject(MatSnackBar)
   constructor(){
     this.route.queryParamMap.subscribe((params: { get: (arg0: string) => any; })=>{
       const email = params.get('emailField')
@@ -39,10 +41,19 @@ export class LoginComponent {
       .subscribe({
         next: ()=>{
           this.status = 'success'
+          this.toast.open(this.status, 'Cerrar', {
+            duration: 2000, // Duración en milisegundos (2 segundos en este ejemplo)
+            panelClass: ['success-snackbar'], // Clase de estilo personalizado para éxito
+          });
           this.router.navigate(['/'])
         },
-        error: ()=>{
+        error: (error)=>{
             this.status = 'failed'
+            console.log(error)
+            this.toast.open(error.statusText, 'Cerrar', {
+              duration: 5000, // Duración del Snackbar en milisegundos (en este caso, 5 segundos)
+              panelClass: ['error-snackbar'], // Clase CSS personalizada para estilos de error
+            });
         }
       })
     } else {

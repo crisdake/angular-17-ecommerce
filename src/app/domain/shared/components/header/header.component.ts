@@ -25,8 +25,10 @@ export class HeaderComponent {
     logout(){
       this.authService.logout()
       this.router.navigate(['/'])
+      this.ToggleUserMenu()
     }
     ToggleUserMenu(){
+      console.log('llamando')
       this.hideUserMenu.update(prevstate => !prevstate)
     }
 

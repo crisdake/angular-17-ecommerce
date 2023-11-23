@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
+import { User } from '@shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class ApiProductService {
   }
   getOne(id:string){
     return this.http.get<Product>(`https://api.escuelajs.co/api/v1/products/${id}`)
+  }
+  getUsers(){
+    return this.http.get<User[]>('https://api.escuelajs.co/api/v1/users')
   }
 }
