@@ -1,8 +1,8 @@
 <!-- esto con behaviorsubject y rxjs <ng-container *ngIf="User() | async as user"></ng-container> -->
-<div class="flex flex-col space-y-2 place-content-center">
+<div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 place-content-center">
   <div
-    class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    style="margin-left: 20rem"
+    id="user"
+    class="w-full max-w-sm h-1/2  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
   >
     <div class="flex justify-end px-4 pt-4">
       <button
@@ -79,15 +79,16 @@
     </div>
   </div>
 
-  <div
-    class="w-full max-w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+  <div 
+    id="users"  
+   class="w-full max-w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
   >
     <div class="flex items-center justify-between mb-4">
       <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
         Latest Customers
       </h5>
       <a
-        href="#"
+        (click)="showAllUsers()"
         class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
       >
         View all
@@ -95,7 +96,7 @@
     </div>
     <div class="flow-root">
       <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-        <li *ngFor="let item of Public()" class="py-3 sm:py-4">
+        <li *ngFor="let item of Public().slice(0, visibleUserCount)" class="py-3 sm:py-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <img

@@ -56,7 +56,7 @@
         <button
           *ngIf="user()"
           type="button"
-          class="flex align-center mr-4 bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="flex items-center justify-center w-10 h-10 bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           id="user-menu-button"
           aria-expanded="false"
           data-dropdown-toggle="user-dropdown"
@@ -113,9 +113,9 @@
       </div>
     </div>
 
-    <button class="relative px-4" (click)="ToogleSideMenu()">
+    <button class="fixed px-4 bottom-4 left-4 bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" (click)="ToogleSideMenu()">
       <div class="absolute -top-1 -left-1 rounded h-5 w-5 bg-black text-white">
-        {{ cart().length }}
+        {{ (cart | async)?.length }}
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@
 </nav>
 <!-- translate-x-full es el class de forma dinamica que se debe ajustar -->
 <div
-  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-full p-4 overflow-y-auto transition-transform bg-white"
   [class.translate-x-full]="hideSideMenu()"
 >
   <div class="flex flex-col justify-between items-center">
@@ -157,7 +157,7 @@
         />
       </svg>
     </button>
-    @for (product of cart(); track product) {
+    @for (product of (cart | async); track product) {
     <div class="flex flex-col justify-between items-center space-y-2 mt-2">
       <div class="flex flex-col space-x-2 items-center">
         <img class="w-20 h-20" [src]="product.images[0]" />
@@ -167,12 +167,13 @@
         <h4>{{ product.title }}</h4>
       </div>
     </div>
+    <button class="w-10 h-10" (click)="RemoveToCart(product)">❎</button>
     }
     <div>
       <p
         class="text-lg text-center font-bold bg-black text-white rounded-md px-4"
       >
-        Total: {{ total() | currency : "$" : "symbol" : "1.0" }}
+        Total: {{ total | async | currency : "$" : "symbol" : "1.0" }}
       </p>
     </div>
   </div>

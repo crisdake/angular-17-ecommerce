@@ -1,5 +1,6 @@
-<div class="flex space-x-4 mt-5">
-  <div class="hidden lg:block w-56 place-content-around ml-4 md:w-56">
+<div class="flex flex-col sm:flex-row space-x-4 mt-5">
+  <div class="w-full sm:w-56 place-content-around ml-4 md:w-56 mb-4 sm:mb-0">
+    <h1 class="text-md mt-4">Search By Category</h1>
     <ul>
       <li>
         <a routerLink="/">All</a>
@@ -12,10 +13,19 @@
       </li>
       }
     </ul>
+    <h1 class="text-md mt-4">Search By Title</h1>
+    <input class="h-6 w-full rounded-lg outline-slate-600 border-black" type="text" placeholder="Search by Product name" (keydown)="updateQueryParam($event)">
+    <h1 class="text-md mt-4">Search By Price</h1>
+    <input id="priceRange" class="h-6 w-full rounded-lg outline-slate-600 border-black" type="range" [(ngModel)]="price_min" min="0" max="1000" (input)="updatePriceParam($event)">
+    <label for="priceRange">Precio minimo: {{ price_min }}</label>
+    <input id="priceRangem" class="h-6 w-full rounded-lg outline-slate-600 border-black" type="range" min="0" max="1000" [(ngModel)]="price_max"  (input)="updatePriceParamMax($event)">
+    <label for="priceRangem">Precio maximo: {{ price_max }}</label>
   </div>
+
   <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-8 w-full">
     @for (product of products(); track product) {
-    <app-product [product]="product" (addToCart)="addTocart($event)" />
+
+    <app-product [product]="product" (addToCart)="addTocart($event)"/>
     }
   </div>
 </div>

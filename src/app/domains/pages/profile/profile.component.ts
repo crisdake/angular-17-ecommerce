@@ -16,15 +16,19 @@ export class ProfileComponent {
   private apiService = inject(ApiProductService)
   User = this.Authservice.User
   Public = signal<User[]>([])
-  ngOnInit(){
+  visibleUserCount = 6
+  ngOnInit() {
     this.apiService.getUsers().subscribe({
-      next:(users)=> {
+      next: (users) => {
         this.Public.set(users)
       },
-      error: ()=>{
-
+      error: (error) => {
+        new Error(error)
       }
     })
-   
+
+  }
+  showAllUsers() {
+    this.visibleUserCount = this.Public().length;
   }
 }

@@ -1,8 +1,19 @@
+/* login.component.css */
+
+/* Estilo de éxito */
 .success-snackbar {
-  background-color: #4caf50; /* Color de fondo verde */
-  color: white; /* Color de texto blanco */
+  background-color: #4CAF50 !important;
+  color: white !important;
+  /* Agrega estilos adicionales para el fondo y el texto */
+  background: #4CAF50 !important;
+  color: white !important;
 }
+
+/* Estilo de error */
 .error-snackbar {
-  background-color: #ff0234; /* Color de fondo verde */
-  color: hotpink;
+  background-color: #f44336 !important;
+  color: white !important;
+  /* Agrega estilos adicionales para el fondo y el texto */
+  background: #f44336 !important;
+  color: white !important;
 }
