@@ -9,6 +9,5 @@ export const RedirectGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
   const token = inject(TokenService).IsValidRefreshToken()
   // navega al profile
-  console.log(token)
-  return token ? router.navigateByUrl('/login'): true;
+  return token ? router.navigateByUrl('/login') : true;
 };

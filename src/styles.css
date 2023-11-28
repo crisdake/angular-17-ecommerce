@@ -2,14 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-/* styles.css */
-.success-snackbar {
-  background-color: #4caf50; /* Color de fondo verde */
-  color: white; /* Color de texto blanco */
+
+html,
+body {
+  height: 100%;
 }
-.error-snackbar {
-  background-color: #ff0234; /* Color de fondo verde */
-  color: hotpink;
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

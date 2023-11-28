@@ -53,7 +53,7 @@ export class ApiProductService {
     }
 
     // falta arreglar categorias y el carrito de compras
-    console.log(UrL.toString())
+    /* console.log(UrL.toString()) */
     return this.http.get<Product[]>(UrL.toString())
   }
   getOne(id: string) {
