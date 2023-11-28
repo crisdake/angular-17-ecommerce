@@ -2,7 +2,7 @@ import { HttpInterceptorFn, HttpContextToken, HttpContext, HttpRequest, HttpHand
 import { inject } from '@angular/core';
 import { AuthService } from '@shared/services/auth.service';
 import { TokenService } from '@shared/services/token.service';
-import { switchMap } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 const CheckToke = new HttpContextToken<boolean>(() => false)
 export function checkToken() {

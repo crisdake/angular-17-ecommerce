@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '@shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
@@ -14,12 +14,15 @@ import { RequestStatus } from '@shared/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private authservice = inject(AuthService)
-  private formBuilder = inject(FormBuilder)
-  private router = inject(Router)
-  private route = inject(ActivatedRoute)
-  private toast = inject(MatSnackBar)
-  constructor() {
+  /*   private authservice = inject(AuthService)
+    private formBuilder = inject(FormBuilder)
+    private router = inject(Router)
+    private route = inject(ActivatedRoute)
+    private toast = inject(MatSnackBar) */
+  constructor(private authService: AuthService, private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toast: MatSnackBar) {
     this.route.queryParamMap.subscribe((params: { get: (arg0: string) => any; }) => {
       const email = params.get('emailField')
       if (email) {
@@ -37,7 +40,7 @@ export class LoginComponent {
       this.status = 'loading'
       const { emailField, PasswordField } = this.form.getRawValue()
       // antes de suscribirse en la respuesta vas y guardas el token en sessionstorage
-      this.authservice.LoginAndGet(emailField, PasswordField)
+      this.authService.LoginAndGet(emailField, PasswordField)
         .subscribe({
           next: () => {
             this.status = 'success'

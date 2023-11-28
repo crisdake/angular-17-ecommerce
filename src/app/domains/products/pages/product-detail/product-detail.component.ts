@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { ApiProductService } from '@shared/services/api-product.service';
 import { CommonModule } from '@angular/common';
 import { Product } from '@shared/models/product.model';
@@ -13,30 +13,29 @@ import { CartService } from '@shared/services/cart.service';
 })
 export class ProductDetailComponent {
   @Input() id?: string
-  private productService = inject(ApiProductService)
-  private cartService = inject(CartService)
   product = signal<Product | null>(null)
   cover = signal('')
-  ngOnInit(){
-    if(this.id){
-       this.productService.getOne(this.id)
-       .subscribe({
-        next: (product) => {
-           console.log(product)
-           this.product.set(product)
-           if(product.images.length >0) {
-             this.cover.set(product.images[0])
-           }
-        }
-      })
+  constructor(private productService: ApiProductService, private cartService: CartService) { }
+  ngOnInit() {
+    if (this.id) {
+      this.productService.getOne(this.id)
+        .subscribe({
+          next: (product) => {
+            console.log(product)
+            this.product.set(product)
+            if (product.images.length > 0) {
+              this.cover.set(product.images[0])
+            }
+          }
+        })
     }
   }
-  Changecover(newimg: string){
+  Changecover(newimg: string) {
     this.cover.set(newimg)
   }
-  addToCart(){
+  addToCart() {
     const product = this.product()
-    if(product){
+    if (product) {
       this.cartService.addTocart(product)
     }
   }

@@ -1,4 +1,4 @@
-import { Component, signal, inject, Input, SimpleChanges } from '@angular/core';
+import { Component, signal, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { ProductComponent } from './../../components/product/product.component';
@@ -20,11 +20,6 @@ export class ListComponent {
   products = signal<Product[]>([
   ])
   category = signal<Category[]>([])
-  private cartService = inject(CartService)
-  private ApiService = inject(ApiProductService)
-  private CategoryService = inject(CategoriesService)
-  private route = inject(ActivatedRoute)
-  private router = inject(Router)
   @Input() category_id?: string
   @Input() title?: string
   @Input() price_min?: string
@@ -36,24 +31,9 @@ export class ListComponent {
     // necesito cambiar por el parametro category los productos que se reenderiza
     this.getProducts();
   }
-  constructor() {
-    /*    const initProducts: Product[]= [
-         {
-           id: Date.now(),
-           title: 'Pro 1',
-           price: 100,
-           image: 'https://picsum.photos/640/640?r=23',
-           CreationAt: new Date().toISOString()
-         },
-         {
-           id: Date.now(),
-           title: 'Pro 1',
-           price: 100,
-           image: 'https://picsum.photos/640/640?r=33',
-           CreationAt: new Date().toISOString()
-         }
-       ]
-       this.products.set(initProducts) */
+
+  constructor(private cartService: CartService, private ApiService: ApiProductService, private CategoryService: CategoriesService, private route: ActivatedRoute, private router: Router) {
+
   }
   /*   fromChild(event: string) {
       console.log('estamos en al padre');

@@ -3,7 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { TokenService } from './token.service';
 import { Auth, User } from '@shared/models/user.model';
 import { ResponseLogin } from '@shared/models/auth.model'
-import { switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { checkToken } from 'src/app/interceptors/token.interceptor';
 
 @Injectable({
